@@ -161,7 +161,7 @@ function Conflicts() {
                                                     }}
                                                 >
                                                     <AlertTriangle className="h-4 w-4" />
-                                                    <span>Reject Report</span>
+                                                    <span>Citizen fault</span>
                                                 </button>
                                                 <button 
                                                     className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center space-x-2"

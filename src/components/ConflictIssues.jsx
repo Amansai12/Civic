@@ -4,13 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useFetchConflictIssues, useFetchIssuesByOffice } from "@/api/query";
-import AuthIssueCard from "./AuthIssueCard";
+import { useFetchConflictIssues} from "@/api/query";
 import Loader from "./Loader";
+import axios from "axios";
+import { BACKEND_URL } from "@/config";
+import { useToast } from "@/hooks/use-toast";
 
 const ConflictIssues = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [citizenLoading, setCitizenLoading] = useState(false);
+  const [authorityLoading, setAuthorityLoading] = useState(false);
   const observerTarget = useRef(null);
 
   const {
@@ -50,6 +54,7 @@ const ConflictIssues = () => {
     }
   };
 
+  const {toast} = useToast()
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -60,6 +65,45 @@ const ConflictIssues = () => {
     }).format(date);
     
 };
+
+  const handleCitizenFault = async (issueId) => {
+    try {
+      setCitizenLoading(true);
+      const res = await axios.get(`${BACKEND_URL}/issue/citizen-fault/${issueId}`,{
+        withCredentials: true,
+      });
+      removeIssueFromCache(issueId);
+      toast({
+        title: "Success",
+        description: "Citizen faulted successfully",
+        className: "bg-green-700 text-white",
+      });
+    }catch(err){
+      console.log(err)
+    }finally{
+      setCitizenLoading(false);
+    }
+  };  
+  const handleAuthorityFault = async (issueId) => {
+    try {
+      setAuthorityLoading(true);
+      const res = await axios.get(`${BACKEND_URL}/issue/citizen-fault/${issueId}`,{
+        withCredentials: true,
+      });
+      removeIssueFromCache(issueId);
+      toast({
+        title: "Success",
+        description: "Citizen faulted successfully",
+        className: "bg-green-700 text-white",
+      });
+    }catch(err){
+      console.log(err)
+    }finally{
+      setAuthorityLoading(false);
+    }
+  };  
+
+ 
 
   if (isError) {
     return (
@@ -124,7 +168,7 @@ const ConflictIssues = () => {
           <div className="space-y-4">
             {issues.pages.map((page, index) => (
               <React.Fragment key={index}>
-                {page.data.issues.map((issue) => (
+                {page.data.issues.filter((i) => i.dispute == true).map((issue) => (
                   <Card key={issue.id} className="w-full border-red-200">
                   <CardHeader className="border-b border-red-100">
                       <div className="flex justify-between items-start">
@@ -192,24 +236,24 @@ const ConflictIssues = () => {
                               </div>
                               <div className="flex justify-end space-x-2">
                                   <button 
+                                    disabled={authorityLoading || citizenLoading}
                                       className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 flex items-center space-x-2"
                                       onClick={() => {
-                                          // Handle reject logic
-                                          alert('Conflict report rejected');
+                                          handleAuthorityFault(issue.id);
                                       }}
                                   >
-                                      <AlertTriangle className="h-4 w-4" />
-                                      <span>Reject Report</span>
+                                      {authorityLoading ? <Loader2 className="animate-spin h-4 w-4" /> : <p className="flex gap-2 items-center justify-center"><AlertTriangle className="h-4 w-4" />
+                                        <span>Authority Fault</span></p>}
                                   </button>
                                   <button 
+                                      disabled={citizenLoading || authorityLoading}
                                       className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center space-x-2"
                                       onClick={() => {
-                                          // Handle forward logic
-                                          alert('Case forwarded for investigation');
+                                          handleCitizenFault(issue.id);
                                       }}
                                   >
-                                      <Forward className="h-4 w-4" />
-                                      <span>Forward to Investigation</span>
+                                      
+                                      <span>{citizenLoading ? <Loader2 className="animate-spin h-4 w-4" /> :<p className="flex gap-2 items-center justify-center"><Forward className="h-4 w-4" /> Citizen Fault</p>}</span>
                                   </button>
                               </div>
                           </div>

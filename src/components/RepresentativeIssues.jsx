@@ -67,6 +67,8 @@ const RepresentativeIssues = () => {
     );
   }
 
+
+
   return (
     <div className="min-h-[80vh]">
       <div className="max-w-7xl mx-auto ">
