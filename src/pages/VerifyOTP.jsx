@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import axios from 'axios';
+import { BACKEND_URL } from '@/config';
 
 const OTPVerification = () => {
   const location = useLocation();
@@ -74,12 +75,13 @@ const OTPVerification = () => {
     try{
         setLoading(true)
         if(type == 'phone'){
-          const res = await axios.post(`${"http://localhost:3000"}/auth/user-verify-token`,{code : otp.join("")},{
+          const res = await axios.post(`${BACKEND_URL}/auth/user-verify-token`,{code : otp.join("")},{
               withCredentials : true
           })
-          navigate('/issues')
+          localStorage.setItem("type","citizen")
+          navigate('/')
         }else{
-          const res = await axios.post(`${"http://localhost:3000"}/auth/authority-verify-token`,{code : otp.join("")},{
+          const res = await axios.post(`${BACKEND_URL}/auth/authority-verify-token`,{code : otp.join("")},{
               withCredentials : true
           })
           navigate('/dashboard')
@@ -95,7 +97,7 @@ const OTPVerification = () => {
   const handleResendOTP = async () => {
     setTimer(30);
     try{
-        const res = axios.post(`${"http://localhost:3000"}/auth/userResentOTP`,{type : credential},{credential : credential,type : type},{
+        const res = axios.post(`${BACKEND_URL}/auth/userResentOTP`,{type : credential},{credential : credential,type : type},{
             withCredentials : true
         })
     }catch(e){

@@ -17,7 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AnalyticsDashboard = ({issues}) => {
-    console.log(issues);
+   
    
 
   // Prepare data for status distribution

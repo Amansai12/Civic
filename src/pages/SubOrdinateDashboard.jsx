@@ -15,84 +15,33 @@ import {
     Trash2,
     Droplet, 
     Leaf, 
-    HardHat
+    HardHat,
+    Building2
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.jsx";
-import Forwarded from "@/components/Forwarded";
-import Conflicts from "@/components/Conflicts";
-import RepresentativeIssues from "@/components/RepresentativeIssues";
 import AuthorityProfile from "@/components/AuthorityProfile";
 import SubordinateIssues from "@/components/SubordinateIssues";
+import SubordinateAnalyticsDashboard from "@/components/SubordinateAnalytics";
 
 const SubordinateDashboardPage = () => {
     const [activeTab, setActiveTab] = useState("dashboard");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     
-
+    
     const navigationItems = [
         { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
         { id: "issues", label: "Issues", icon: AlertTriangle },
         { id: "settings", label: "Settings", icon: Settings },
     ];
 
-   
-
-    // Sample data - in a real app this would come from an API
-    const analyticsData = {
-        totalIssues: 156,
-        resolvedIssues: 124,
-        pendingIssues: 22,
-        conflictIssues: 10,
-    };
-
-
-
     
-
     
 
     const renderContent = () => {
         switch (activeTab) {
             case "dashboard":
                 return (
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                        <Card>
-                            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">Total Issues</CardTitle>
-                                <LayoutDashboard className="h-4 w-4 text-gray-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-2xl font-bold">{analyticsData.totalIssues}</div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">Resolved</CardTitle>
-                                <CheckCircle className="h-4 w-4 text-green-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-2xl font-bold">{analyticsData.resolvedIssues}</div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">Pending</CardTitle>
-                                <AlertTriangle className="h-4 w-4 text-yellow-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-2xl font-bold">{analyticsData.pendingIssues}</div>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                <CardTitle className="text-sm font-medium">Conflicts</CardTitle>
-                                <AlertTriangle className="h-4 w-4 text-red-500" />
-                            </CardHeader>
-                            <CardContent>
-                                <div className="text-2xl font-bold">{analyticsData.conflictIssues}</div>
-                            </CardContent>
-                        </Card>
-                    </div>
+                    <SubordinateAnalyticsDashboard />
                 );
             case "issues":
                 return (
@@ -113,15 +62,18 @@ const SubordinateDashboardPage = () => {
             <aside 
                 className={`
                     fixed top-0 left-0 z-40 h-screen w-64 
-                    bg-white border-r shadow-sm
+                    bg-slate-800 text-white
                     transform transition-transform duration-200 ease-in-out
                     ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
                     lg:translate-x-0
                 `}
             >
                 <div className="flex flex-col h-full">
-                    <div className="h-16 flex items-center px-6 border-b">
-                        <h1 className="text-xl font-bold text-gray-800">Municipal Dashboard</h1>
+                    <div className="h-16 flex items-center px-6 border-b border-slate-700 bg-slate-900">
+                        <div className="flex items-center gap-3">
+                            <Building2 className="h-6 w-6 text-blue-400" />
+                            <h1 className="text-xl font-bold text-white">Municipal Portal</h1>
+                        </div>
                     </div>
                     <nav className="flex-1 overflow-y-auto p-4">
                         {navigationItems.map((item) => {
@@ -137,10 +89,10 @@ const SubordinateDashboardPage = () => {
                                         w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
                                         transition-colors duration-150
                                         ${activeTab === item.id 
-                                            ? 'bg-blue-50 text-blue-600' 
-                                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                                            ? 'bg-blue-600 text-white' 
+                                            : 'text-slate-300 hover:bg-slate-700 hover:text-white'
                                         }
-                                        my-2
+                                        my-1
                                     `}
                                 >
                                     <Icon className="h-5 w-5" />
@@ -154,19 +106,27 @@ const SubordinateDashboardPage = () => {
 
             {/* Main Content Area */}
             <div className="lg:pl-64 flex flex-col min-h-screen">
-                {/* Mobile Header */}
-                <header className="lg:hidden bg-white border-b px-4 py-3 flex items-center justify-between sticky top-0 z-30">
-                    <h1 className="text-xl font-bold text-gray-800">Municipal Dashboard</h1>
-                    <button
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                        className="p-2 rounded-md hover:bg-gray-100"
-                    >
-                        {isSidebarOpen ? (
-                            <X className="h-6 w-6 text-gray-600" />
-                        ) : (
-                            <Menu className="h-6 w-6 text-gray-600" />
-                        )}
-                    </button>
+                {/* Header */}
+                <header className="bg-white border-b shadow-sm sticky top-0 z-30">
+                    <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center">
+                            <button
+                                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                                className="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                            >
+                                {isSidebarOpen ? (
+                                    <X className="h-6 w-6" />
+                                ) : (
+                                    <Menu className="h-6 w-6" />
+                                )}
+                            </button>
+                            <div className="ml-4 lg:hidden">
+                                <h1 className="text-lg font-bold text-gray-900">Municipal Portal</h1>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
                 </header>
 
                 {/* Main Content */}
@@ -176,6 +136,11 @@ const SubordinateDashboardPage = () => {
                             <h2 className="text-2xl font-bold text-gray-900">
                                 {navigationItems.find(item => item.id === activeTab)?.label}
                             </h2>
+                            <p className="text-gray-600 mt-1">
+                                {activeTab === "dashboard" ? "Overview of municipal operations and key metrics" : 
+                                 activeTab === "issues" ? "Track and manage municipal service requests and issues" : 
+                                 "Configure system settings and user permissions"}
+                            </p>
                         </div>
                         {renderContent()}
                     </div>

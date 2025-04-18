@@ -7,6 +7,7 @@ import SubordinateDashboardPage from './SubOrdinateDashboard'
 function Dashboard() {
     
     const type = localStorage.getItem("type")
+    console.log(type)
     
     if(type === "citizen"){
         return <UserProfile/>

@@ -97,7 +97,7 @@ const DashboardTopBar = ({ setFromDate, setToDate }) => {
   };
 
   return (
-    <div className="w-full bg-white border-b shadow-sm rounded-md">
+    <div className="w-full bg-white border border-gray-300 shadow-sm rounded-md">
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h1 className="text-2xl font-semibold text-gray-900">Issues Analytics</h1>

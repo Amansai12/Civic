@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { data, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { User, Phone, Lock, MapPin } from "lucide-react";
+import { User, Phone, Lock, MapPin, Shield } from "lucide-react";
 import { useUserSignup } from "@/api/query";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
@@ -23,6 +23,7 @@ const SignupForm = () => {
     });
     const { data, mutate: signup, isPending, isError, isSuccess, error: err } = useUserSignup();
     const { toast } = useToast();
+
     React.useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -81,7 +82,7 @@ const SignupForm = () => {
 
             signup(formData);
         } catch (error) {
-            console.log("hey");
+            console.error("Error during signup:", error);
         }
     };
 
@@ -91,29 +92,79 @@ const SignupForm = () => {
     }
 
     return (
-        <div className="min-h-screen flex">
-            {/* Left side - Form */}
-            <div className="w-full md:w-1/2 bg-white p-8 flex items-center justify-center">
-                <Card className="w-full max-w-md border-none shadow-none">
-                    <CardHeader>
-                        <CardTitle className="text-2xl font-bold text-center">Citizen Registration</CardTitle>
+        <div className="min-h-screen flex bg-gray-50">
+            {/* Left side - Official branding */}
+            <div className="w-1/2 relative hidden md:block bg-blue-900">
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-20"
+                    style={{
+                        backgroundImage: "url(/api/placeholder/800/1200)",
+                    }}
+                />
+                <div className="absolute inset-0 flex flex-col justify-center items-center px-12 text-white z-10">
+                    <div className="mb-8 flex items-center justify-center">
+                        <Shield className="h-16 w-16 mr-4" />
+                        <h1 className="text-3xl font-bold">CITIZEN PORTAL</h1>
+                    </div>
+                    <h2 className="text-4xl font-bold mb-6 text-center">
+                        Serving Citizens Better
+                    </h2>
+                    <p className="text-lg leading-relaxed text-center">
+                        A secure platform connecting citizens with government services. Report concerns, 
+                        access public information, and engage with your community through our official portal.
+                    </p>
+                    <div className="mt-8 p-4 bg-white/10 rounded-lg border border-white/20 w-full max-w-md">
+                        <h3 className="text-xl font-semibold mb-2">Benefits of Registration</h3>
+                        <ul className="space-y-2">
+                            <li className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-300 mr-2"></div>
+                                <span>Get realtime feed of your reports</span>
+                            </li>
+                            <li className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-300 mr-2"></div>
+                                <span>Efficient issue reporting and tracking</span>
+                            </li>
+                            <li className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-300 mr-2"></div>
+                                <span>Real-time updates on community matters</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
+                    © 2025 National Government Services • Privacy Policy • Terms of Use
+                </div>
+            </div>
+
+            {/* Right side - Form */}
+            <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+                <Card className="w-full max-w-md border-gray-200 shadow-md">
+                    <CardHeader className="border-b bg-gray-50">
+                        <div className="flex items-center justify-center mb-2">
+                            <Shield className="h-6 w-6 text-blue-700 mr-2" />
+                            <span className="text-sm font-semibold text-blue-700">OFFICIAL PORTAL</span>
+                        </div>
+                        <CardTitle className="text-2xl font-bold text-center text-gray-800">Citizen Registration</CardTitle>
+                        <p className="text-center text-gray-500 text-sm mt-1">
+                            Create an account to access government services
+                        </p>
                     </CardHeader>
-                    <CardContent>
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                    <CardContent className="pt-6">
+                        <form onSubmit={handleSubmit} className="space-y-5">
                             {error && (
-                                <Alert variant="destructive">
-                                    <AlertDescription>{error}</AlertDescription>
+                                <Alert variant="destructive" className="border-red-200 bg-red-50">
+                                    <AlertDescription className="text-red-800">{error}</AlertDescription>
                                 </Alert>
                             )}
 
                             <div className="space-y-2">
-                                <Label htmlFor="name">Full Name</Label>
+                                <Label htmlFor="name" className="text-gray-700">Full Legal Name</Label>
                                 <div className="relative">
                                     <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                                     <Input
                                         id="name"
                                         placeholder="John Doe"
-                                        className="pl-10"
+                                        className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
@@ -121,76 +172,75 @@ const SignupForm = () => {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="phone">Phone Number</Label>
+                                <Label htmlFor="phone" className="text-gray-700">Phone Number</Label>
                                 <div className="relative">
                                     <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                                     <Input
                                         id="phone"
                                         type="tel"
                                         placeholder="1234567890"
-                                        className="pl-10"
+                                        className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                     />
                                 </div>
+                                <p className="text-xs text-gray-500">Your phone will be used for verification</p>
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password" className="text-gray-700">Secure Password</Label>
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                                     <Input
                                         id="password"
                                         type="password"
-                                        className="pl-10"
+                                        className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                     />
                                 </div>
+                                <p className="text-xs text-gray-500">Minimum 8 characters required</p>
                             </div>
 
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                <MapPin className="h-4 w-4" />
-                                {formData.latitude ? "Location accessed" : "Accessing location..."}
+                            <div className="flex items-center gap-2 p-3 bg-gray-50 border border-gray-200 rounded-md">
+                                <MapPin className="h-4 w-4 text-blue-700" />
+                                <span className="text-sm text-gray-700">
+                                    {formData.latitude ? "Location access granted" : "Accessing location..."}
+                                </span>
+                                <span className="text-xs text-gray-500 ml-auto">Required for local services</span>
                             </div>
 
-                            <p className="text-sm text-center text-black">
-                                Already have an account?{" "}
-                                <Link to="/signin" className="text-red-500 hover:underline">
-                                    Sign in
+                            <div className="pt-2">
+                                <Button 
+                                    type="submit" 
+                                    className="w-full bg-blue-700 hover:bg-blue-800 text-white"
+                                >
+                                    {isPending ? "Processing..." : "Register Account"}
+                                </Button>
+                            </div>
+
+                            <p className="text-sm text-center text-gray-600 pt-2">
+                                By registering, you agree to our{" "}
+                                <Link to="/terms" className="text-blue-600 hover:underline">
+                                    Terms of Service
+                                </Link>{" "}
+                                and{" "}
+                                <Link to="/privacy" className="text-blue-600 hover:underline">
+                                    Privacy Policy
                                 </Link>
                             </p>
 
-                            <Button type="submit" className="w-full">
-                                {isPending ? "Loading..." : "Sign Up"}
-                            </Button>
+                            <div className="border-t border-gray-200 pt-4 mt-4">
+                                <p className="text-sm text-center text-gray-600">
+                                    Already have an account?{" "}
+                                    <Link to="/signin" className="text-blue-600 font-medium hover:underline">
+                                        Sign in
+                                    </Link>
+                                </p>
+                            </div>
                         </form>
                     </CardContent>
                 </Card>
-            </div>
-
-            {/* Right side - Image with gradient overlay and text */}
-            <div className="w-1/2 relative hidden md:block">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: "url(https://tse1.mm.bing.net/th?id=OIG3._11U013Xn5j5oQxsmE_8&pid=ImgGn)",
-                    }}
-                />
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background: "linear-gradient(135deg, rgba(0, 0, 6, 0.3) 0%, rgba(0, 0, 2, 0.5) 100%)",
-                    }}
-                />
-                {/* <div className="absolute inset-0 flex flex-col justify-center px-12 text-white">
-          <h2 className="text-4xl font-bold mb-6">
-            Efficient Issue Management System
-          </h2>
-          <p className="text-lg leading-relaxed">
-            Join our community-driven platform designed to streamline issue reporting and resolution. Our system enables citizens to easily report concerns, track progress, and collaborate with local authorities for faster resolution. With real-time updates and location-based reporting, we ensure that your voice is heard and your concerns are addressed effectively.
-          </p>
-        </div> */}
             </div>
         </div>
     );

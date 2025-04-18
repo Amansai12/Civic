@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Bell, CheckCircle2, XCircle, ChevronRight, Clock, Loader2 } from "lucide-react";
+import {
+  Bell,
+  CheckCircle2,
+  XCircle,
+  ChevronRight,
+  Clock,
+  Loader2,
+} from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,32 +18,39 @@ import {
 import { useConfirmResoultion, useRejectResoultion } from "@/api/query";
 
 function NotificationCard({ notification, formatDate, removeFromCache }) {
-  const { mutate : confirm, isPending : confirmPending, isSuccess : confirmSuccess, isError : confirmError, data : confirmData } =
-    useConfirmResoultion();
-  const { mutate : reject, isPending : rejectPending, isSuccess : rejectSuccess, isError : rejectError, data : rejectData } =
-    useRejectResoultion();
-
+  const {
+    mutate: confirm,
+    isPending: confirmPending,
+    isSuccess: confirmSuccess,
+    isError: confirmError,
+    data: confirmData,
+  } = useConfirmResoultion();
+  const {
+    mutate: reject,
+    isPending: rejectPending,
+    isSuccess: rejectSuccess,
+    isError: rejectError,
+    data: rejectData,
+  } = useRejectResoultion();
 
   useEffect(() => {
     if (confirmSuccess || rejectSuccess) {
       removeFromCache(notification.id);
     }
-    
-  }, [confirmSuccess,rejectSuccess]);
+  }, [confirmSuccess, rejectSuccess]);
 
   const handleConfirm = () => {
     confirm({
-        issueId : notification.issueId,
-        id : notification.id
-    })
-  
-}
-const handleReject = () => {
+      issueId: notification.issueId,
+      id: notification.id,
+    });
+  };
+  const handleReject = () => {
     reject({
-        issueId : notification.issueId,
-        id : notification.id
-    })
-}
+      issueId: notification.issueId,
+      id: notification.id,
+    });
+  };
   return (
     <Card
       key={notification.id}
@@ -98,8 +112,13 @@ const handleReject = () => {
                 disabled={rejectPending}
                 onClick={handleReject}
               >
-                
-                {rejectPending ? <Loader2 className="animate-spin" />  :<><XCircle className="h-4 w-4" /> Reject</>}
+                {rejectPending ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <>
+                    <XCircle className="h-4 w-4" /> Reject
+                  </>
+                )}
               </Button>
             </TooltipTrigger>
           </Tooltip>
@@ -113,8 +132,13 @@ const handleReject = () => {
                 onClick={handleConfirm}
                 disabled={confirmPending}
               >
-                
-                {confirmPending ? <Loader2 className="animate-spin" />  :<><CheckCircle2 className="h-4 w-4" /> Confirm</>}
+                {confirmPending ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <>
+                    <CheckCircle2 className="h-4 w-4" /> Confirm
+                  </>
+                )}
               </Button>
             </TooltipTrigger>
           </Tooltip>

@@ -10,6 +10,7 @@ import {
     fetchNearByIssues,
     forwardIssue,
     getAnalytics,
+    getAuthorities,
     getUser,
     rejectResolution,
     sendIssue,
@@ -128,7 +129,7 @@ export const useSendIssue = () => {
             // Invalidate and refetch related queries
             //queryClient.invalidateQueries({ queryKey: ['issues'] });
             // You might want to add a success notification here
-            navigate("/issues");
+            navigate("/");
         },
         onError: (error) => {
             // Handle errors appropriately
@@ -379,10 +380,17 @@ export const useUnUpVote = () => {
     });
 };
 
-export const useFetchAnalytics = (fromDate, toDate) => {
-    console.log(fromDate, toDate);
+export const useFetchAnalytics = (fromDate, toDate, type) => {
     return useQuery({
-        queryKey: ["analytics", fromDate, toDate],
+        queryKey: ["analytics", fromDate, toDate , type],
         queryFn: getAnalytics,
+    });
+};
+
+export const useFetchAuthorities = () => {
+    return useQuery({
+        queryKey: ["authorities"],
+        queryFn: getAuthorities,
+        staleTime: 1000 * 60 * 30,
     });
 };

@@ -65,6 +65,8 @@ const SubordinateIssues = () => {
     );
   }
 
+  console.log(issues);
+
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto ">

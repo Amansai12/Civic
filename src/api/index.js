@@ -1,6 +1,7 @@
+import { BACKEND_URL } from "@/config";
 import axios from "axios";
 
-const BACKEND_URL = "http://localhost:3000";
+
 
 export const fetchNearByIssues = ({ pageParam, queryKey }) => {
     return axios.get(
@@ -83,8 +84,13 @@ export const unUpVote = async (body) => {
 };
 
 export const getAnalytics = async ({ queryKey }) => {
-    const res = await axios.get(`${BACKEND_URL}/issue/analytics?fromDate=${queryKey[1]}&toDate=${queryKey[2]}`, {
+    const res = await axios.get(`${BACKEND_URL}/issue/analytics?fromDate=${queryKey[1]}&toDate=${queryKey[2]}&type=${queryKey[3]}`, {
         withCredentials: true,
     });
     return res.data;
+};
+
+export const getAuthorities = async () => {
+    const res = await axios.get(`${BACKEND_URL}/auth/authorities`, { withCredentials: true });
+    return res.data.authorities;
 };

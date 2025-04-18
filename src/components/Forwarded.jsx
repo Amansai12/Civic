@@ -22,6 +22,7 @@ import Loader from "./Loader";
 import SearchAndFilters from "./SearchandFilters";
 import { useNavigate } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import DownloadReportButton from "./DownloadReport";
 
 function Forwarded() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -198,6 +199,7 @@ function Forwarded() {
                           Raised by: {issue.user.name}
                         </p>}
                         <div className="flex gap-2 w-full sm:w-auto">
+                          <DownloadReportButton issueId={issue.id} />
                           <button onClick={() => navigate(`/issue/${issue.id}`)} className="flex-1 sm:flex-initial px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 text-sm font-medium">
                             Details
                           </button>

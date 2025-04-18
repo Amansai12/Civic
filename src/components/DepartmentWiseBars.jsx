@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react';
 
 const DepartmentIssuesCard = ({ departmentsData, isLoading, error }) => {
 
-    console.log(departmentsData)
+    
   const colors = {
     resolved: '#00C49F',
     under_review: '#FFBB28',

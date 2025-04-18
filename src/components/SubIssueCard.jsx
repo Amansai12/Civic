@@ -32,11 +32,13 @@ import { useUpdateIssue } from "@/api/query";
 import { useToast } from "@/hooks/use-toast";
 import DownloadReportButton from "./DownloadReport";
 import { useNavigate } from "react-router-dom";
+import AudioPlayerButton from "./AudioControlButton";
 
 function SubIssueCard({ issue ,updateIssueInCache}) {
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const [updatedDescription, setUpdatedDescription] = useState(issue.description);
   const [updatedStatus, setUpdatedStatus] = useState(issue.status);
+  console.log(issue);
 
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -152,6 +154,7 @@ function SubIssueCard({ issue ,updateIssueInCache}) {
               <Eye className="h-4 w-4" />
               Details
             </Button>
+            {issue.audio && <AudioPlayerButton audioURL={issue.audio} />}
             <DownloadReportButton issueId={issue.id} />
 
             <Dialog open={isUpdateOpen} onOpenChange={setIsUpdateOpen}>
