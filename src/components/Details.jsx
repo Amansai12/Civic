@@ -151,7 +151,7 @@ function Details({ issue }) {
                   <CheckCircle className="h-4 w-4 text-emerald-700 mt-0.5" />
                   <div>
                     <span className="text-sm font-medium text-emerald-800 block">Case Resolved</span>
-                    <span className="text-sm text-emerald-700">Resolution confirmed on {formatDate(issue.ResolutionConfirmation.date)}</span>
+                    <span className="text-sm text-emerald-700">Resolution confirmed on {formatDate(issue.resolvedDate)}</span>
                   </div>
                 </div>
               )}

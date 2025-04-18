@@ -183,9 +183,29 @@ const IssueDetail = () => {
     };
     return configs[status] || configs.PENDING;
   };
+  const getPriorityConfig = (priority) => {
+    const configs = {
+      URGENT: { 
+        color: "bg-blue-100 text-blue-800 border-blue-200", 
+        icon: Loader2,
+        label: "Urgent"
+      },
+      NORMAL: { 
+        color: "bg-green-100 text-green-800 border-green-200", 
+        icon: CheckCircle2,
+        label: "Normal"
+      },
+      SEVERE: { 
+        color: "bg-red-100 text-red-800 border-red-200", 
+        icon: XCircle,
+        label: "Severe"
+      },
+    }
 
+    return configs[priority] || configs.NORMAL
+  }
   const statusConfig = getStatusConfig(issue.status);
-  
+  const priorityConfig = getPriorityConfig(issue.priority);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -234,9 +254,9 @@ const IssueDetail = () => {
                     <Building2 className="mr-2 h-4 w-4 text-blue-700" />
                     {issue.departmentName || "Unassigned Department"}
                   </span>
-                  <span className="flex items-center">
-                    <Tag className="mr-2 h-4 w-4 text-blue-700" />
-                    {issue.category || "General"}
+                  <span className={cn(`flex items-center px-2 py-1 justify-center rounded-lg`,priorityConfig.color)}>
+                    <priorityConfig.icon />
+                    <p className="font-medium text-[15px] ml-1">{priorityConfig.label}</p>
                   </span>
                 </div>
               </div>
