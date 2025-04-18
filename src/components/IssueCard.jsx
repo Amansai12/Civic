@@ -15,19 +15,19 @@ import { useNavigate } from 'react-router-dom';
 import UpVoteButton from './UpVoteButton';
 
 const IssueCard = ({issue,searchTerm}) => {
-  const {id,title,description,createdAt,upVotes,address = "123 Main st",status,image} = issue
+  const {id,title,description,createdAt,upVotes,address = "123 Main st",status,image,priority} = issue
   const [votes, setVotes] = useState(upVotes);
   const [isVoted, setIsVoted] = useState(false);
   const navigate = useNavigate();
 
-  const priority = upVotes?.length > 10 ? 'high' : upVotes?.length > 5 ? 'medium' : 'low';
+  //const priority = upVotes?.length > 10 ? 'high' : upVotes?.length > 5 ? 'medium' : 'low';
   const getPriorityColor = (priority) => {
     switch (priority.toLowerCase()) {
-      case 'high':
+      case 'severe':
         return 'bg-red-100 text-red-700 border-red-200';
-      case 'medium':
+      case 'urgent':
         return 'bg-yellow-100 text-yellow-700 border-yellow-200';
-      case 'low':
+      case 'normal':
         return 'bg-green-100 text-green-700 border-green-200';
       default:
         return 'bg-gray-100 text-gray-700 border-gray-200';
@@ -78,7 +78,7 @@ const IssueCard = ({issue,searchTerm}) => {
           {/* Badges positioned over image */}
           <div className="absolute top-3 left-3 flex gap-2">
             <Badge className={`${getPriorityColor(priority)} border`}>
-              {priority} Priority
+              {priority}
             </Badge>
             <Badge className={`${getStatusColor(status)} border`}>
               {status}
