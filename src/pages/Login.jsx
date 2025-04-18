@@ -11,6 +11,7 @@ import { useSetRecoilState } from "recoil";
 import { userAtom } from "@/store/user";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { BACKEND_URL } from "@/config";
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const LoginForm = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post(`${"http://localhost:3000"}/auth/userlogin`, formData, {
+            const res = await axios.post(`${BACKEND_URL}/auth/userlogin`, formData, {
                 withCredentials: true,
             });
             setUser(res.data?.user);
