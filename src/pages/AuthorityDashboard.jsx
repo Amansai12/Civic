@@ -15,7 +15,8 @@ import {
     Trash2,
     Droplet, 
     Leaf, 
-    HardHat
+    HardHat,
+    UserCircle
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { Separator } from "@/components/ui/separator";
@@ -28,6 +29,7 @@ import Navbar from "@/components/Navbar";
 import ConflictIssues from "@/components/ConflictIssues";
 import IssueAnalyticsDashboard from "@/components/IssuesAnalyticsDashboard";
 import '../App.css'
+import Authorities from "@/components/Authorities";
 
 const DashboardPage = () => {
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -38,6 +40,7 @@ const DashboardPage = () => {
         { id: "issues", label: "Issues", icon: AlertTriangle },
         { id: "forwarded", label: "Forwarded", icon: Forward },
         { id: "conflicts", label: "Conflicts", icon: CheckCircle },
+        { id: "Authorities", label: "Authorities", icon: UserCircle },
         { id: "settings", label: "Settings", icon: Settings },
     ];
 
@@ -58,6 +61,10 @@ const DashboardPage = () => {
             case "conflicts":
                 return (
                     <ConflictIssues />
+                );
+            case "Authorities":
+                return (
+                    <Authorities/>
                 );
             case "settings":
                 return (
@@ -159,6 +166,7 @@ const DashboardPage = () => {
                                 {activeTab === "issues" && "Manage public issues and requests"}
                                 {activeTab === "forwarded" && "Track forwarded requests"}
                                 {activeTab === "conflicts" && "Handle conflicting issues"}
+                                {activeTab === "Authorities" && "Manage municipal authorities"}
                                 {activeTab === "settings" && "Manage your profile and settings"}
                             </p>
                         </div>

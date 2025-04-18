@@ -15,7 +15,7 @@ function Loader() {
           speed="1" 
           color="#334155" // slate-700 color
         ></l-line-spinner>
-        <p className="mt-4 text-sm text-slate-600 font-medium">Loading..</p>
+        <p className="mt-4 text-sm text-slate-600 font-medium">Loading...</p>
       </div>
     </div>
   );

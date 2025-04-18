@@ -9,124 +9,128 @@ import LoginForm from "./pages/Login";
 import ResetPassword from "./pages/Reset-password";
 import IssueForm from "./components/SendIssue";
 import Dashboard from "./pages/Dashboard";
-import AudioRecorder from "./components/AudioRecorder";
 import AuthorityLoginForm from "./pages/AuthoritySignin";
-
-
 import UserProfile from "./pages/CitizenDashboard";
 import { useFetchUser } from "./api/query";
 import Loader from "./components/Loader";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NotFoundPage from "./components/NotFound";
+import Logout from "./components/Logout";
 
+// Public routes that should be accessible without authentication
+const PUBLIC_ROUTES = [
+  "/signin", 
+  "/signup", 
+  "/AuthoritySignup", 
+  "/authoritySignin",
+  "/reset-password",
+  "/verify-otp"
+];
+
+// Route component for authenticated users only
 const PrivateRoute = ({ children }) => {
-    const { data, isLoading } = useFetchUser();
+    const { data, isLoading, isError } = useFetchUser();
     const location = useLocation();
-    const type = data?.type || data?.role;
 
-    if (isLoading) {
-        return <Loader />; // Show a loader while checking auth status
+    if (isLoading && !isError) {
+        return <Loader />;
     }
 
-    if (!data) {
+    // If no user data or error, redirect to signin
+    if (!data || isError) {
         return <Navigate to="/signin" state={{ from: location }} replace />;
     }
 
+    // Check user type and redirect if necessary
+    const type = data?.type || data?.role;
     if (type && type !== "citizen" && location.pathname !== "/dashboard") {
-        return <Navigate to="/dashboard" state={{ from: location }} replace />;
+        return <Navigate to="/dashboard" replace />;
     }
 
     return children;
 };
 
-const RedirectAuthenticatedUser = ({ children }) => {
-    const location = useLocation();
-    const { data, isLoading } = useFetchUser();
-
-    const authPages = ["/signin", "/signup", "/AuthoritySignup", "/authoritySignin"];
-
-    if (isLoading) {
-        return <Loader />; // Show a loader while checking auth status
-    }
-
-    if (data && authPages.includes(location.pathname)) {
-        const intendedPath = location.state?.from?.pathname || "/issues";
-        return <Navigate to={intendedPath} replace />;
-    }
-
-    return children;
-};
 
 function App() {
-    const { data: user, error, isLoading } = useFetchUser();
     const navigate = useNavigate();
+    const location = useLocation();
+    const [authChecked, setAuthChecked] = useState(false);
+    
+    // Use query options to prevent infinite loops on auth errors
+    const { 
+        data: user, 
+        isLoading, 
+        isError,
+        error
+    } = useFetchUser({
+        retry: PUBLIC_ROUTES.includes(location.pathname) ? 0 : 1,
+        onError: () => {
+            setAuthChecked(true);
+        },
+        onSuccess: () => {
+            setAuthChecked(true);
+        }
+    });
 
     useEffect(() => {
-        if (!user && !isLoading) {
-            navigate("/signin");
+        // Only redirect to sign in if:
+        // 1. User isn't authenticated AND auth check is complete
+        // 2. Not already on a public route
+        // 3. Not in a loading state
+        if (!user && authChecked && !isLoading && !PUBLIC_ROUTES.includes(location.pathname)) {
+            navigate("/signin", { replace: true });
         }
-    }, [user, isLoading, navigate]);
+    }, [user, isLoading, navigate, location.pathname, authChecked]);
 
-    if (isLoading)
+    // If still loading initial auth state and not on a public route, show loader
+    if (isLoading && !PUBLIC_ROUTES.includes(location.pathname)) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <Loader />
             </div>
         );
+    }
 
     return (
         <>
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <Issue />
-                        </RedirectAuthenticatedUser>
-                    }
-                />
+                {/* Public routes - accessible to anyone */}
                 <Route
                     path="/signup"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <SignupForm />
-                        </RedirectAuthenticatedUser>
-                    }
+                    element={<SignupForm />}
                 />
-                <Route path="/signin" element={<LoginForm />} />
+                <Route
+                    path="/signin"
+                    element={<LoginForm />}
+                />
                 <Route
                     path="/verify-otp"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <OTPVerification />
-                        </RedirectAuthenticatedUser>
-                    }
+                    element={<OTPVerification />}
                 />
                 <Route
                     path="/reset-password"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <ResetPassword />
-                        </RedirectAuthenticatedUser>
-                    }
+                    element={<ResetPassword />}
                 />
                 <Route
                     path="/AuthoritySignup"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <AuthoritySignup />
-                        </RedirectAuthenticatedUser>
-                    }
+                    element={<AuthoritySignup />}
                 />
                 <Route
                     path="/authoritySignin"
-                    element={
-                        <RedirectAuthenticatedUser>
-                            <AuthorityLoginForm />
-                        </RedirectAuthenticatedUser>
-                    }
+                    element={<AuthorityLoginForm />}
                 />
+
+                {/* Routes that can be viewed by anyone, but have special behavior when logged in */}
+                <Route
+                    path="/"
+                    element={user ? <Issue /> : <Navigate to="/signin" />}
+                />
+                
+                {/* Route for issue details - visible to all but with different permissions */}
+                <Route path="/issue/:id" element={<IssueDetail />} />
+
+                {/* Private routes - need authentication */}
                 <Route
                     path="/map"
                     element={
@@ -136,11 +140,11 @@ function App() {
                     }
                 />
                 <Route
-                    path="/issue/:id"
+                    path="/issues"
                     element={
-                        
-                            <IssueDetail />
-                        
+                        <PrivateRoute>
+                            <Issue />
+                        </PrivateRoute>
                     }
                 />
                 <Route
@@ -167,8 +171,9 @@ function App() {
                         </PrivateRoute>
                     }
                 />
-
-                <Route path="/audio" element={<AudioRecorder />} />
+                
+                <Route path="/logout" element={<Logout />} />
+                {/* Catch-all route */}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </>

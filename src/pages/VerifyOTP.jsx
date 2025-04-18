@@ -78,6 +78,7 @@ const OTPVerification = () => {
           const res = await axios.post(`${BACKEND_URL}/auth/user-verify-token`,{code : otp.join("")},{
               withCredentials : true
           })
+          localStorage.setItem("type","citizen")
           navigate('/')
         }else{
           const res = await axios.post(`${BACKEND_URL}/auth/authority-verify-token`,{code : otp.join("")},{

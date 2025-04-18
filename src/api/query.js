@@ -10,6 +10,7 @@ import {
     fetchNearByIssues,
     forwardIssue,
     getAnalytics,
+    getAuthorities,
     getUser,
     rejectResolution,
     sendIssue,
@@ -383,5 +384,13 @@ export const useFetchAnalytics = (fromDate, toDate, type) => {
     return useQuery({
         queryKey: ["analytics", fromDate, toDate , type],
         queryFn: getAnalytics,
+    });
+};
+
+export const useFetchAuthorities = () => {
+    return useQuery({
+        queryKey: ["authorities"],
+        queryFn: getAuthorities,
+        staleTime: 1000 * 60 * 30,
     });
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BACKEND_URL = "https://mini-project-backend-cywd.onrender.com";
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://mini-project-backend-cywd.onrender.com";
+//const BACKEND_URL = "http://localhost:3000";
 
 export const fetchNearByIssues = ({ pageParam, queryKey }) => {
     return axios.get(
@@ -88,4 +88,9 @@ export const getAnalytics = async ({ queryKey }) => {
         withCredentials: true,
     });
     return res.data;
+};
+
+export const getAuthorities = async () => {
+    const res = await axios.get(`${BACKEND_URL}/auth/authorities`, { withCredentials: true });
+    return res.data.authorities;
 };

@@ -48,8 +48,9 @@ const LoginForm = () => {
             const res = await axios.post(`${"http://localhost:3000"}/auth/userlogin`, formData, {
                 withCredentials: true,
             });
-            setUser(res.data.user);
-            queryClient.setQueryData(["user"], res.data.user);
+            setUser(res.data?.user);
+            localStorage.setItem("type", "citizen");
+            queryClient.setQueryData(["user"], res.data?.user);
 
             navigate("/");
         } catch (e) {

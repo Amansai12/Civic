@@ -129,7 +129,6 @@ const IssueAnalyticsDashboard = () => {
     );
   }
 
-console.log(departmentsData)
   return (
     <div className="w-full space-y-4 py-2 bg-slate-50">
       
@@ -171,15 +170,15 @@ console.log(departmentsData)
             <div className="text-2xl font-bold text-gray-900">
               {analyticsData.RESOLVED || 0}
             </div>
-            <div className="flex items-center mt-1">
+            <div className="flex items-center mt-1 overflow-hidden relative">
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
                   className="bg-green-600 h-2 rounded-full"
                   style={{ width: `${(analyticsData.RESOLVED || 0/analyticsData.totalIssues || 0) * 100}%` }}
                 ></div>
               </div>
-              <span className="text-xs text-gray-500 ml-2">
-                {((analyticsData.RESOLVED || 0)/(analyticsData.totalIssues || 0)) * 100}%
+              <span className="text-xs ml-2 text-green-400 z-50">
+                {Math.floor(((analyticsData.RESOLVED || 0)/(analyticsData.totalIssues || 1)) * 100)}%
               </span>
             </div>
           </CardContent>
@@ -275,7 +274,7 @@ console.log(departmentsData)
             <div className="w-full bg-gray-100 rounded-full h-2">
               <div
                 className="bg-blue-600 h-2 rounded-full"
-                style={{ width: `${((analyticsData.FORWARDED || 0)/(analyticsData.totalIssues || 0)) * 100}%` }}
+                style={{ width: `${((analyticsData.FORWARDED || 0) * 100/(analyticsData.totalIssues || 1))}%` }}
               ></div>
             </div>
           </div>
