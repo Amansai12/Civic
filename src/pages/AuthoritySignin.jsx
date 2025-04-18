@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { userAtom } from '@/store/user';
 import { useToast } from '@/hooks/use-toast';
+import { BACKEND_URL } from '@/config';
 
 const AuthorityLoginForm = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const AuthorityLoginForm = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${"http://localhost:3000"}/auth/authoritylogin`, formData, { withCredentials: true });
+      const res = await axios.post(`${BACKEND_URL}/auth/authoritylogin`, formData, { withCredentials: true });
       localStorage.setItem('type', res.data.user.role);
       setUser(res.data.user);
       navigate('/dashboard');
