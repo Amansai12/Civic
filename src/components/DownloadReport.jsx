@@ -1,5 +1,6 @@
 import React from 'react';
 import { Download } from 'lucide-react';
+import { BACKEND_URL } from '@/config';
 
 const DownloadReportButton = ({ issueId }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -9,7 +10,7 @@ const DownloadReportButton = ({ issueId }) => {
       setIsLoading(true);
       
       // Make request to download endpoint
-      const response = await fetch(`http://localhost:3000/issue/${issueId}/report`, {
+      const response = await fetch(`${BACKEND_URL}/issue/${issueId}/report`, {
         method: 'GET',
         headers: {
           'Accept': 'application/pdf',

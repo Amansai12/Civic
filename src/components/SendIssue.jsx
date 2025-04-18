@@ -15,6 +15,7 @@ import { useSendIssue } from '@/api/query';
 import { useToast } from '@/hooks/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 import Navbar from './Navbar';
+import Loader from './Loader';
 
 
 
@@ -385,7 +386,7 @@ const IssueForm = () => {
       </div>
     </SheetContent>
   );
-  if(isPending) return <div>Loading...</div>
+  if(isPending) return <Loader />
   return (
     <>
       <Navbar />
