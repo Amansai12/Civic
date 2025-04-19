@@ -346,46 +346,7 @@ const IssueForm = () => {
     
   };
 
-  const ChatDrawer = () => (
-    <SheetContent 
-      side="right" 
-      className="w-full lg:max-w-[700px] border-l shadow-2xl transition-transform duration-500 ease-in-out"
-      style={{ zIndex: 1000 }} // Explicitly set high z-index
-    >
-      <div className="flex flex-col h-full">
-        <SheetHeader className="px-6 py-4 border-b">
-          <SheetTitle className="text-xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">
-            AI Writing Assistant
-          </SheetTitle>
-        </SheetHeader>
-        
-        <div className="flex-1 overflow-auto px-6 py-4 scroll-smooth">
-          <div className="space-y-4">
-            {dummyMessages.map((msg, idx) => (
-              <ChatMessage key={idx} {...msg} />
-            ))}
-          </div>
-        </div>
-
-        <div className="border-t p-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <form className="flex items-center gap-2" onSubmit={(e) => e.preventDefault()}>
-            <Input 
-              placeholder="Type your message..."
-              value={chatMessage}
-              onChange={(e) => setChatMessage(e.target.value)}
-              className="flex-1 rounded-full border-primary/20 focus:border-primary/40"
-            />
-            <Button 
-              size="icon" 
-              className="rounded-full h-10 w-10 hover:scale-105 transition-transform duration-200"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
-          </form>
-        </div>
-      </div>
-    </SheetContent>
-  );
+ 
   if(isPending) return <div className='w-full h-[100vh] flex justify-center items-center'>
     <div className='flex flex-col justify-center items-center gap-2'>
       <Loader2 size={20} className='animate-spin' />
@@ -395,7 +356,7 @@ const IssueForm = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4 md:p-8">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-4 md:p-8">
       {/* Add a wrapper div with relative positioning */}
       <div className="relative">
         <Card className="max-w-[1200px] w-11/12 mx-auto shadow-lg transition-shadow duration-200 hover:shadow-xl">
@@ -409,18 +370,7 @@ const IssueForm = () => {
                   Help us improve your community by reporting issues in your area
                 </CardDescription>
               </div>
-              <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <SheetTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    size="icon" 
-                    className="rounded-full hover:scale-105 transition-all duration-200"
-                  >
-                    <MessageSquare className="h-5 w-5" />
-                  </Button>
-                </SheetTrigger>
-                <ChatDrawer />
-              </Sheet>
+             
             </div>
           </CardHeader>
           <CardContent className="p-6">
