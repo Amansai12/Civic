@@ -16,6 +16,7 @@ import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
+import { BACKEND_URL } from "@/config";
 
 function AuthorityProfile() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -25,7 +26,7 @@ function AuthorityProfile() {
     const queryClient = useQueryClient();
     const handleLogout = async () => {
         try{
-            await axios.get(`${"http://localhost:3000"}/auth/logout`,{withCredentials: true});
+            await axios.get(`${BACKEND_URL}/auth/logout`,{withCredentials: true});
             localStorage.removeItem("type");
             queryClient.clear()
             navigate("/authoritySignin")
