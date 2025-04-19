@@ -63,7 +63,7 @@ const IssueCard = ({issue,searchTerm}) => {
 
   return (
     <TooltipProvider>
-      <Card className="flex flex-col justify-between transition-all duration-300 hover:shadow-lg overflow-hidden w-full md:w-4/12">
+      <Card className="flex flex-col justify-between transition-all duration-300 hover:shadow-lg overflow-hidden w-full">
         <div className="relative">
           {/* Image Container with Fixed Height */}
           <div className="relative h-48 overflow-hidden">

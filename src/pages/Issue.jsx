@@ -86,7 +86,7 @@ const Issue = () => {
 
   let markers;
   if(isError) return (
-    <div className='min-h-screen flex items-center justify-center'>
+    <div className='min-h-screen bg-slate-50 flex items-center justify-center'>
       <div className="text-center p-8 bg-white shadow-md rounded-md">
         <AlertCircle className="h-12 w-12 text-red-700 mx-auto mb-3" />
         <h2 className="text-xl font-semibold text-red-700 mb-2">Error Loading Issues</h2>
@@ -123,7 +123,6 @@ const Issue = () => {
               </div>
             </div>
 
-          
 
             {/* Search and Filter Section */}
             <Card className="border-0 shadow-sm mb-6">
@@ -179,7 +178,7 @@ const Issue = () => {
               </CardContent>
             </Card>
           ) : (
-            <Card className="border-0 shadow-sm overflow-hidden">
+            <Card className="border-0 shadow-sm overflow-hidden w-full">
               <CardHeader className="bg-gray-50 border-b pb-3">
                 <CardTitle className="text-gray-800">Issues nearby you</CardTitle>
               </CardHeader>
@@ -212,7 +211,7 @@ const Issue = () => {
                   </div>
 
                   <TabsContent value="list" className="p-4 mt-0">
-                    <div className="flex flex-col md:flex-row gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                       {data.pages.map((page) => (
                         page.data.issues.map((issue) => (
                           <IssueCard key={issue.id} issue={issue} searchTerm={searchTerm} />
@@ -315,7 +314,7 @@ const Issue = () => {
         </div>
         
         {/* Footer */}
-        <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm mt-8 px-2">
+        <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm mt-8">
           <p>© 2025 Municipal Issue Reporting System • All Rights Reserved</p>
         </footer>
       </div>
