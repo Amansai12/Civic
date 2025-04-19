@@ -107,7 +107,7 @@ const Navbar = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <span className="text-lg font-bold text-gray-900">Government Issue Tracker</span>
+                                    <span className="text-sm md:text-lg font-bold text-gray-900">Government Issue Tracker</span>
                                     <div className="text-xs text-gray-500">Department of Technical Services</div>
                                 </div>
                             </Link>
@@ -242,16 +242,6 @@ const Navbar = () => {
                     {/* Mobile Navigation */}
                     {isMenuOpen && (
                         <div className="md:hidden py-2 space-y-1 border-t border-gray-200">
-                            <div className="py-2 px-4">
-                                <div className="relative">
-                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
-                                    <input 
-                                        type="search" 
-                                        placeholder="Search issues..." 
-                                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    />
-                                </div>
-                            </div>
                             <MobileNavLink to="/issues" onClick={closeMenu}>
                                 Issues Database
                             </MobileNavLink>
