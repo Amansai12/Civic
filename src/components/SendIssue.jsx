@@ -387,8 +387,8 @@ const IssueForm = () => {
     </SheetContent>
   );
   if(isPending) return <div className='w-full h-[100vh] flex justify-center items-center'>
-    <div>
-      <Loader2 className='animate-spin' />
+    <div className='flex flex-col justify-center items-center gap-2'>
+      <Loader2 size={20} className='animate-spin' />
       <p className='text-lg font-medium'>Reporting your issue, please wait...</p>
     </div>
   </div>

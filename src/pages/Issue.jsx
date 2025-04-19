@@ -86,7 +86,7 @@ const Issue = () => {
 
   let markers;
   if(isError) return (
-    <div className='min-h-screen bg-slate-50 flex items-center justify-center'>
+    <div className='min-h-screen flex items-center justify-center'>
       <div className="text-center p-8 bg-white shadow-md rounded-md">
         <AlertCircle className="h-12 w-12 text-red-700 mx-auto mb-3" />
         <h2 className="text-xl font-semibold text-red-700 mb-2">Error Loading Issues</h2>
@@ -111,7 +111,7 @@ const Issue = () => {
           <div className="mb-8">
             <div className="bg-white border-l-4 border-blue-800 shadow-sm p-4 mb-6">
               <div className="flex items-center">
-                <Shield className="h-6 w-6 text-blue-800 mr-3" />
+                <Shield className="h-6 w-6 text-blue-800 mr-3 hidden md:block" />
                 <div>
                   <h1 className="text-2xl font-semibold text-gray-800">
                     Community Issues Registry
@@ -123,24 +123,7 @@ const Issue = () => {
               </div>
             </div>
 
-            {/* Stats Grid */}
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              {stats.map((stat) => (
-                <Card key={stat.label} className="border-0 shadow-sm">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
-                      <div className={`p-3 ${stat.bgColor} rounded-lg`}>
-                        <stat.icon className={`h-5 w-5 ${stat.textColor}`} />
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">{stat.label}</p>
-                        <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div> */}
+          
 
             {/* Search and Filter Section */}
             <Card className="border-0 shadow-sm mb-6">
@@ -156,7 +139,7 @@ const Issue = () => {
                       onKeyDown={handleKeyDown}
                     />
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-center items-center">
                     <Button 
                       className="bg-gray-700 hover:bg-gray-800 text-white" 
                       onClick={handleSearchButtonClick}
@@ -198,7 +181,7 @@ const Issue = () => {
           ) : (
             <Card className="border-0 shadow-sm overflow-hidden">
               <CardHeader className="bg-gray-50 border-b pb-3">
-                <CardTitle className="text-gray-800">Issue Tracking Registry</CardTitle>
+                <CardTitle className="text-gray-800">Issues nearby you</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <Tabs defaultValue="list" className="w-full">
@@ -229,7 +212,7 @@ const Issue = () => {
                   </div>
 
                   <TabsContent value="list" className="p-4 mt-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="flex flex-col md:flex-row gap-3">
                       {data.pages.map((page) => (
                         page.data.issues.map((issue) => (
                           <IssueCard key={issue.id} issue={issue} searchTerm={searchTerm} />
@@ -332,7 +315,7 @@ const Issue = () => {
         </div>
         
         {/* Footer */}
-        <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm mt-8">
+        <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm mt-8 px-2">
           <p>© 2025 Municipal Issue Reporting System • All Rights Reserved</p>
         </footer>
       </div>
