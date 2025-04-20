@@ -7,9 +7,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useFetchConflictIssues} from "@/api/query";
 import Loader from "./Loader";
 import axios from "axios";
-import { BACKEND_URL } from "@/config";
-import { useToast } from "@/hooks/use-toast";
 
+import { useToast } from "@/hooks/use-toast";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const ConflictIssues = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");

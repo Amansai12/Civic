@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from 'recharts';
 import { DownloadCloud, Loader2 } from "lucide-react";
-import { BACKEND_URL } from '@/config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ReportDownloadButton = ({toDate,fromDate}) => {
 

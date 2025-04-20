@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import axios from 'axios';
-import { BACKEND_URL } from '@/config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const OTPVerification = () => {
   const location = useLocation();

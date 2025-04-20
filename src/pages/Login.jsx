@@ -11,7 +11,7 @@ import { useSetRecoilState } from "recoil";
 import { userAtom } from "@/store/user";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
-import { BACKEND_URL } from "@/config";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const LoginForm = () => {
     const navigate = useNavigate();
