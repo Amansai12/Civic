@@ -21,25 +21,18 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
-import SubordinateIssues from "@/components/SubordinateIssues";
 import { useFetchUser } from "@/api/query";
 import NotificationsSection from "@/components/NotificationsSection";
 import SettingsSection from "@/components/CitizenProfile";
 import { useNavigate } from "react-router-dom";
 import MyList from "@/components/MyList";
-import Navbar from "@/components/Navbar";
+
 
 const CitizenDashboard = () => {
     const [activeTab, setActiveTab] = useState("notifications");
@@ -167,8 +160,7 @@ const CitizenDashboard = () => {
                 <div className="flex flex-col h-full">
                     <div className="h-16 flex items-center px-6 border-b border-gray-200 bg-blue-800">
                         <div className="flex items-center">
-                            <Shield className="h-6 w-6 text-white mr-2" />
-                            <h1 className="text-lg font-semibold text-white">Citizen Portal</h1>
+                            <h1 className="text-lg font-semibold text-white">Your Dashboard</h1>
                         </div>
                     </div>
                     
@@ -224,10 +216,10 @@ const CitizenDashboard = () => {
                         </Button>
                         <Button 
                             variant="outline" 
-                            className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 justify-start"
+                            className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 justify-center flex"
                             onClick={() => setIsEditProfileOpen(true)}
                         >
-                            <User className="h-4 w-4 mr-2" />
+                            <User className="h-4 w-4 mr-1" />
                             Edit Profile
                         </Button>
                     </div>
@@ -268,16 +260,13 @@ const CitizenDashboard = () => {
                             </p>
                         </div>
                         
-                        <div className="bg-white shadow-sm rounded-lg p-6">
+                        <div className="rounded-lg p-6">
                             {renderContent()}
                         </div>
                     </div>
                 </main>
                 
-                {/* Footer */}
-                <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm">
-                    <p>© 2025 Municipal Citizen Services Portal</p>
-                </footer>
+            
             </div>
 
             {/* Mobile Overlay */}

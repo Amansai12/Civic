@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { userAtom } from '@/store/user';
 import { useToast } from '@/hooks/use-toast';
-import { BACKEND_URL } from '@/config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AuthorityLoginForm = () => {
   const navigate = useNavigate();

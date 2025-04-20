@@ -40,7 +40,7 @@ function Progress({ issue }) {
   };
 
   return (
-    <Card className="border-2 border-slate-300 shadow-md bg-white/98 backdrop-blur transition-all duration-300">
+    <Card className="border-2 border-slate-300 shadow-md bg-white/98 backdrop-blur transition-all duration-300 overflow-hidden">
       <CardHeader className="pb-0 border-b-2 border-slate-200 bg-slate-50">
         <CardTitle className="text-xl font-semibold flex items-center gap-2 text-slate-800 pb-3">
           <ClipboardList className="h-5 w-5 text-slate-700" />

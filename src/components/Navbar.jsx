@@ -107,8 +107,8 @@ const Navbar = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <span className="text-sm md:text-lg font-bold text-gray-900">Government Issue Tracker</span>
-                                    <div className="text-xs text-gray-500">Department of Technical Services</div>
+                                    <span className="text-sm md:text-lg font-bold text-gray-900">Civic Engagement</span>
+                                    <div className="text-xs text-gray-500">Tracking civic issues made easy</div>
                                 </div>
                             </Link>
                         </div>

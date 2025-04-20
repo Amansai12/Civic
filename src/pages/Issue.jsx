@@ -19,7 +19,6 @@ import {
 import IssueCard from '@/components/IssueCard';
 import MapWithMarkers from './Map';
 import { useNavigate } from 'react-router-dom';
-import { dummyIssues } from '@/lib/dummy';
 import { useFetchNearByIssues } from '@/api/query';
 import Navbar from '@/components/Navbar';
 import Loader from '@/components/Loader';
@@ -30,7 +29,6 @@ const Issue = () => {
   const [actualSearch, setActualSearch] = useState('');
   const [view, setView] = useState('list');
   const [totalIssues, setTotalIssues] = useState(0);
-  
   const queryClient = useQueryClient();
   const userData = queryClient.getQueryData(['user']);
   
@@ -315,7 +313,7 @@ const Issue = () => {
         
         {/* Footer */}
         <footer className="bg-white border-t border-gray-200 py-4 text-center text-gray-500 text-sm mt-8">
-          <p>© 2025 Municipal Issue Reporting System • All Rights Reserved</p>
+          <p>© 2025 Issue Reporting System • All Rights Reserved</p>
         </footer>
       </div>
     </>

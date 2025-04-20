@@ -1,6 +1,6 @@
 import React from 'react';
 import { Download } from 'lucide-react';
-import { BACKEND_URL } from '@/config';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const DownloadReportButton = ({ issueId }) => {
   const [isLoading, setIsLoading] = React.useState(false);

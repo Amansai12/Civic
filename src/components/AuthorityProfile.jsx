@@ -16,7 +16,7 @@ import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
-import { BACKEND_URL } from "@/config";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function AuthorityProfile() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);

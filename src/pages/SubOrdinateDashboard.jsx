@@ -1,24 +1,12 @@
 import React, { useState } from "react";
 import { 
     LayoutDashboard, 
-    Users, 
     AlertTriangle, 
-    CheckCircle, 
-    BarChart2, 
-    Forward, 
     Settings, 
     Menu, 
     X,
-    Wrench, 
-    Zap,
-    MapPin, 
-    Trash2,
-    Droplet, 
-    Leaf, 
-    HardHat,
     Building2
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import AuthorityProfile from "@/components/AuthorityProfile";
 import SubordinateIssues from "@/components/SubordinateIssues";
 import SubordinateAnalyticsDashboard from "@/components/SubordinateAnalytics";

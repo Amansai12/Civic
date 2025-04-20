@@ -38,7 +38,7 @@ function Details({ issue }) {
   };
 
   return (
-    <Card className="border border-blue-700 shadow-md bg-white/98 backdrop-blur sticky top-6 transition-all duration-300 overflow-hidden">
+    <Card className="border border-gray-300 shadow-md bg-white/98 backdrop-blur sticky top-6 transition-all duration-300 overflow-hidden">
       <CardHeader className="pb-0 border-b-2 border-slate-200 bg-slate-50">
         <div className="flex items-center mb-2">
           <FileText className="h-5 w-5 text-slate-700 mr-2" />

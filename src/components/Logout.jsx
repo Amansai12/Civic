@@ -1,9 +1,10 @@
-import { BACKEND_URL } from '@/config'
+
 import { useToast } from '@/hooks/use-toast'
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Logout() {
     const [loading, setLoading] = React.useState(false)
