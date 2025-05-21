@@ -199,25 +199,25 @@ const IssueDetail = () => {
     return configs[status] || configs.PENDING;
   };
   const getPriorityConfig = (priority) => {
+    const normalized = priority?.toUpperCase()?.trim(); // safe and clean
     const configs = {
-      URGENT: {
+      "URGENT": {
         color: "bg-blue-100 text-blue-800 border-blue-200",
         icon: Loader2,
         label: "Urgent",
       },
-      NORMAL: {
+      "NORMAL": {
         color: "bg-green-100 text-green-800 border-green-200",
         icon: CheckCircle2,
         label: "Normal",
       },
-      SEVERE: {
+      "SEVERE": {
         color: "bg-red-100 text-red-800 border-red-200",
         icon: XCircle,
         label: "Severe",
       },
     };
-
-    return configs[priority] || configs.NORMAL;
+    return configs[normalized] || configs.NORMAL;
   };
   const statusConfig = getStatusConfig(issue.status);
   const priorityConfig = getPriorityConfig(issue.priority);
